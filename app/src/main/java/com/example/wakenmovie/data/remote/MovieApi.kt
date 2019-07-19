@@ -13,6 +13,10 @@ interface MovieApi {
     fun getUpcomingMovies(@Query("page")page: Long,
                           @Query("api_key")apiKey: String = BuildConfig.TMDB_API_KEY): Call<ResultsDto>
 
+    @GET("search/movie")
+    fun getMoviesByName(@Query("query")title: String,
+                          @Query("api_key")apiKey: String = BuildConfig.TMDB_API_KEY): Call<ResultsDto>
+
     @GET("movie/{movie_id}")
     fun getMovie(@Path("movie_id") id: Long,
                  @Query("api_key")apiKey: String = BuildConfig.TMDB_API_KEY): Call<MovieDto>

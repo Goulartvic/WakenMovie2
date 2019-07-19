@@ -1,6 +1,9 @@
 package com.example.wakenmovie.data.feature.main
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
 import android.widget.AbsListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -22,6 +25,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private val adapter by lazy { MovieAdapter() }
 
     private var isScrolling = false
+    private var isSearching = false
     private var page: Long = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +51,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         adapter.data = auxiliarList
     }
 
+    override fun onSuccessfullLoadByTitle(movies: List<SimpleMovieDto>) {
+        adapter.data = movies
+    }
+
     override fun onFailureLoadMovies(message: String) {
         showToast(message)
     }
@@ -54,7 +62,30 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private fun setupViews() {
         setSupportActionBar(mainToolbar as Toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        mainToolbar.tmTxtTitle.setText(R.string.app_name)
+        mainToolbar.tmTxtTitle.setText(R.string.movies)
+        mainToolbar.tmImgSearch.setOnClickListener {
+            mainToolbar.tmSearchText.visibility = View.VISIBLE
+            mainToolbar.tmImgSearch.visibility = View.GONE
+            isSearching = true
+        }
+
+        mainToolbar.tmSearchText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0.toString().isEmpty()) {
+                    isSearching = false
+                    page = 1
+                    presenter.loadMovies(page)
+                    return
+                }
+                presenter.loadMoviesByTitle(p0.toString())
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
 
         mainRecMovies.layoutManager = GridLayoutManager(this, 2)
         setupScrollListener(mainRecMovies)
@@ -72,7 +103,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                     isScrolling = true
                 }
             }
-
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
@@ -82,7 +112,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 val totalItems = gridLayoutManager?.itemCount
                 val scrollOutItems = gridLayoutManager?.findFirstVisibleItemPosition()
                 val expectedTotal = scrollOutItems?.let { currentItems?.plus(it) }
-                if (isScrolling && expectedTotal == totalItems) {
+                if (isScrolling && expectedTotal == totalItems && !isSearching) {
                     isScrolling = false
                     page = page.plus(1)
                     presenter.loadMovies(page)

@@ -47,7 +47,7 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
     private fun setupViews() {
         setSupportActionBar(movieToolbar as Toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        movieToolbar.tmTxtTitle.setText(R.string.app_name)
+        movieToolbar.tmTxtTitle.setText(R.string.movies)
         movieToolbar.tmImgSearch.visibility = View.GONE
         movieOverviewReadMore.setOnClickListener{
             movieOverview.maxLines = 100

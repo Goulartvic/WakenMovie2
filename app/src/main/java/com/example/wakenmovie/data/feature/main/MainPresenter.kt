@@ -27,4 +27,21 @@ class MainPresenter(
         }
     }
 
+    override fun loadMoviesByTitle(movieTitle: String) {
+        view.showLoadingMovies()
+
+        dispatcherContext.launch {
+            movieRepository.getMovieByName(movieTitle).whenever(
+                isBody = {
+                    view.hideLoadingMovies()
+                    view.onSuccessfullLoadByTitle(it.results)
+                },
+                isError = {
+                    view.hideLoadingMovies()
+                    view.onFailureLoadMovies(it)
+                }
+            )
+        }
+    }
+
 }

@@ -9,10 +9,12 @@ interface MainContract {
         fun showLoadingMovies()
         fun hideLoadingMovies()
         fun onSuccessfulLoadMovies(movies: List<SimpleMovieDto>)
+        fun onSuccessfullLoadByTitle(movies: List<SimpleMovieDto>)
         fun onFailureLoadMovies(message: String)
     }
 
     interface Presenter : BasePresenter<View> {
         fun loadMovies(page: Long)
+        fun loadMoviesByTitle(movieTitle: String)
     }
 }
