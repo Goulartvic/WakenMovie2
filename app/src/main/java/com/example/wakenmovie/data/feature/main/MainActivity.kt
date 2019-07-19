@@ -69,11 +69,23 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             isSearching = true
         }
 
+        addToolbarTextChangeListener()
+
+        mainRecMovies.layoutManager = GridLayoutManager(this, 2)
+        setupScrollListener(mainRecMovies)
+        mainRecMovies.adapter = adapter
+        adapter.setOnItemClickListener {
+            MovieActivity.startMovieActivity(this, it.id)
+        }
+    }
+
+    private fun addToolbarTextChangeListener() {
         mainToolbar.tmSearchText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 if (p0.toString().isEmpty()) {
                     isSearching = false
                     page = 1
+                    adapter.data = emptyList()
                     presenter.loadMovies(page)
                     return
                 }
@@ -86,13 +98,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
-
-        mainRecMovies.layoutManager = GridLayoutManager(this, 2)
-        setupScrollListener(mainRecMovies)
-        mainRecMovies.adapter = adapter
-        adapter.setOnItemClickListener {
-            MovieActivity.startMovieActivity(this, it.id)
-        }
     }
 
     private fun setupScrollListener(recyclerView: RecyclerView) {
