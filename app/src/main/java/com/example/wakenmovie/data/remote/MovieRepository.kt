@@ -8,4 +8,5 @@ interface MovieRepository {
 
     suspend fun getUpcomingMovies(page: Long): ServiceResponse<ResultsDto>
     suspend fun getMovie(movieId: Long): ServiceResponse<MovieDto>
+    suspend fun getMovieByName(title: String): ServiceResponse<ResultsDto>
 }

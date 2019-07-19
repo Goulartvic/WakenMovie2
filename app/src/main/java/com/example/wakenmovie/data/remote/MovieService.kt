@@ -19,4 +19,7 @@ class MovieService(private val api: MovieApi) : MovieRepository {
         return api.getMovie(movieId).awaitResult()
     }
 
+    override suspend fun getMovieByName(title: String): ServiceResponse<ResultsDto> {
+        return api.getMoviesByName(title).awaitResult()
+    }
 }

@@ -4,4 +4,5 @@
     <string name="item_original_language">Original Language: %1$s</string>
     <string name="item_release_date">Release Date: %1$s</string>
     <string name="read_more">Read More</string>
+    <string name="movies">Movies</string>
 </resources>
