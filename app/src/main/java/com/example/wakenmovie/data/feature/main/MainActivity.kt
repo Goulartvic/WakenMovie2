@@ -110,17 +110,18 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             }
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
-                val gridLayoutManager = recyclerView
-                    .layoutManager as GridLayoutManager?
-                val currentItems = gridLayoutManager?.childCount
-                val totalItems = gridLayoutManager?.itemCount
-                val scrollOutItems = gridLayoutManager?.findFirstVisibleItemPosition()
-                val expectedTotal = scrollOutItems?.let { currentItems?.plus(it) }
-                if (isScrolling && expectedTotal == totalItems && !isSearching) {
-                    isScrolling = false
-                    page = page.plus(1)
-                    presenter.loadMovies(page)
+                if (!isSearching) {
+                    val gridLayoutManager = recyclerView
+                        .layoutManager as GridLayoutManager?
+                    val currentItems = gridLayoutManager?.childCount
+                    val totalItems = gridLayoutManager?.itemCount
+                    val scrollOutItems = gridLayoutManager?.findFirstVisibleItemPosition()
+                    val expectedTotal = scrollOutItems?.let { currentItems?.plus(it) }
+                    if (isScrolling && expectedTotal == totalItems && !isSearching) {
+                        isScrolling = false
+                        page = page.plus(1)
+                        presenter.loadMovies(page)
+                    }
                 }
             }
         })
