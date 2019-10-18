@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimaryDark"
+    android:minHeight="?attr/actionBarSize"
+    app:contentInsetStartWithNavigation="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="?attr/actionBarSize">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tmTxtTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:text="Title"
+                android:textSize="@dimen/title_size"
+                android:textColor="@android:color/white"
+                android:layout_marginEnd="200dp" app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/tmImgSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_search" app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/tmSearchText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Search..."
+                android:textColorHint="@android:color/white"
+                android:visibility="invisible"
+                android:backgroundTint="@android:color/white"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/simple_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toEndOf="@+id/tmTxtTitle"
+                android:layout_marginStart="8dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.appcompat.widget.Toolbar>

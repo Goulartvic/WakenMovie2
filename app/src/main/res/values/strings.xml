@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">WakenMovie</string>
+    <string name="app_name">Wake n Movie</string>
+    <string name="item_rating">Rate: %1$s</string>
+    <string name="item_original_language">Original Language: %1$s</string>
+    <string name="item_release_date">Release Date: %1$s</string>
+    <string name="read_more">Read More</string>
+    <string name="movies">Movies</string>
 </resources>
